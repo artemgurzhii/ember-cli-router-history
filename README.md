@@ -1,7 +1,9 @@
+[![Build Status](https://travis-ci.org/artemgurzhii/ember-cli-router-history.svg?branch=master)](https://travis-ci.org/artemgurzhii/ember-cli-router-history)
+
 ember-cli-router-history
 ==============================================================================
 
-[Short description of the addon.]
+Ember router history with local storage and query params support.
 
 Installation
 ------------------------------------------------------------------------------
@@ -13,8 +15,9 @@ ember install ember-cli-router-history
 
 Usage
 ------------------------------------------------------------------------------
+After installation `ember-cli-router-history` will automatically start tracking page history.
 
-[Longer description of how to use the addon in apps.]
+Inject `routerHistory` service to access `history` items.
 
 
 Contributing
@@ -48,4 +51,4 @@ For more information on using ember-cli, visit [https://ember-cli.com/](https://
 License
 ------------------------------------------------------------------------------
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [GPL-3.0 License](LICENSE).

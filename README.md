@@ -36,6 +36,20 @@ const Router = EmberRouter.extend({
 });
 ```
 
+`this.routerHistory.previous` returns previous transition if present, or null if not.
+`this.routerHistory.history` returns all history items.
+`this.routerHistory.clear()` clear transition history, can be used when user logges out
+
+
+Configuration
+------------------------------------------------------------------------------
+```js
+import RouterHistoryService from 'ember-cli-router-history/services/router-history';
+
+export default RouterHistoryService.extend({
+  maxLength: 20, // Number of item to store in the history, default is 10
+})
+```
 
 Contributing
 ------------------------------------------------------------------------------
@@ -69,3 +83,10 @@ License
 ------------------------------------------------------------------------------
 
 This project is licensed under the [GPL-3.0 License](LICENSE).
+
+
+Big thanks to
+------------------------------------------------------------------------------
+
+[https://github.com/dexturr/ember-contextual-back](dexturr/ember-contextual-back)
+[https://github.com/alexmngn/ember-route-history](alexmngn/ember-route-history)

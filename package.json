@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-router-history",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ember router history with local storage and query params support.",
   "keywords": [
     "ember-addon",

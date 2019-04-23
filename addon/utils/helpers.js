@@ -3,11 +3,11 @@ import { isPresent } from '@ember/utils';
 export const LOCAL_STORAGE_KEY = 'ember-cli-router-history';
 
 export function localStorageSet(key, item) {
-  localStorage.setItem(key, JSON.stringify(item));
+  window.localStorage.setItem(key, JSON.stringify(item));
 }
 
 export function localStorageGet(key) {
-  const item = localStorage.getItem(key);
+  const item = window.localStorage.getItem(key);
 
   if (!item) return null;
 

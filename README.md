@@ -15,9 +15,26 @@ ember install ember-cli-router-history
 
 Usage
 ------------------------------------------------------------------------------
-After installation `ember-cli-router-history` will automatically start tracking page history.
+After installation `ember-cli-router-history` open `app/router.js` and add following
 
-Inject `routerHistory` service to access `history` items.
+```js
+import config from 'your-app-name/config/environment';
+import EmberRouter from '@ember/routing/router';
+import { inject as service } from '@ember/service';
+
+const Router = EmberRouter.extend({
+  routerHistory: service(),
+
+  location: config.locationType,
+  rootURL: config.rootURL,
+
+  willTransition(previousTransition, currentTransition) {
+    this._super(...arguments);
+
+    this.routerHistory.addItem(currentTransition);
+  },
+});
+```
 
 
 Contributing

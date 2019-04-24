@@ -28,16 +28,26 @@ const Router = EmberRouter.extend({
   location: config.locationType,
   rootURL: config.rootURL,
 
+  // Use `willTransition` if you want to track all transitions
   willTransition(previousTransition, currentTransition) {
     this._super(...arguments);
 
     this.routerHistory.addItem(currentTransition);
   },
+
+  // Or use `didTransition` if you want to track only successful(completed/finished) transitions
+  didTransition(transition) {
+    this._super(...arguments);
+
+    this.routerHistory.addItem(transition);
+  },
 });
 ```
 
 `this.routerHistory.previous` returns previous transition if present, or null if not.
+
 `this.routerHistory.history` returns all history items.
+
 `this.routerHistory.clear()` clear transition history, can be used when user logges out
 
 
@@ -88,5 +98,6 @@ This project is licensed under the [GPL-3.0 License](LICENSE).
 Big thanks to
 ------------------------------------------------------------------------------
 
-[https://github.com/dexturr/ember-contextual-back](dexturr/ember-contextual-back)
-[https://github.com/alexmngn/ember-route-history](alexmngn/ember-route-history)
+[dexturr/ember-contextual-back](https://github.com/dexturr/ember-contextual-back)
+
+[alexmngn/ember-route-history](https://github.com/alexmngn/ember-route-history)

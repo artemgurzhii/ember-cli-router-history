@@ -34,7 +34,7 @@ export default Service.extend({
     const history = localStorageGet(LOCAL_STORAGE_KEY);
 
     if (isPresent(history)) {
-      set(this, 'history', history);
+      set(this, 'history', A(history));
     } else {
       localStorageSet(LOCAL_STORAGE_KEY, []);
     }

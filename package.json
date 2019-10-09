@@ -21,10 +21,9 @@
   },
   "scripts": {
     "build": "ember build",
-    "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "cross-env COVERAGE=true ember test",
+    "test": "cross-env ember test",
     "test:all": "ember try:each"
   },
   "dependencies": {
@@ -34,7 +33,6 @@
     "@ember/optional-features": "^0.7.0",
     "cross-env": "^5.2.0",
     "ember-cli": "~3.5.0",
-    "ember-cli-code-coverage": "^0.4.2",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-eslint": "^5.1.0",
     "ember-cli-htmlbars": "^3.0.0",
@@ -42,7 +40,6 @@
     "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-release": "^1.0.0-beta.2",
     "ember-cli-sri": "^2.1.1",
-    "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^3.0.0",
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.0",

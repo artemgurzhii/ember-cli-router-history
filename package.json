@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-router-history",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "index.js",
   "description": "Ember router history with local storage and query params support.",
   "keywords": [

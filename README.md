@@ -10,6 +10,7 @@ Compatibility
 - Ember.js v4.12 or above
 - Embroider or ember-auto-import v2
 - Node.js v18 or above
+- FastBoot — fully supported (see [FastBoot](#fastboot) below)
 
 
 Installation
@@ -82,6 +83,26 @@ export default class extends RouterHistoryService {
   maxLength = 20; // default is 10
 }
 ```
+
+
+FastBoot
+------------------------------------------------------------------------------
+
+The service is safe to use under FastBoot. During server-side rendering it:
+
+- detects the FastBoot context via the `fastboot` service (`isFastBoot`);
+- skips the `localStorage` read in the constructor (so SSR doesn't crash on
+  the missing `window.localStorage`);
+- holds history in-memory only — `addItem` updates the tracked stack but
+  does not call `localStorage.setItem`;
+- continues to expose `previous` and `history` so SSR-rendered components
+  that read them get sensible empty values.
+
+On the client, the service re-initializes from `localStorage` (no shoebox
+hand-off is needed — the per-tab history was already persisted from prior
+sessions). All `localStorage` helpers also guard against environments
+where `window.localStorage` is missing or throws (e.g. private-mode
+SecurityError), so the service is safe in non-FastBoot SSR setups too.
 
 
 Repository layout

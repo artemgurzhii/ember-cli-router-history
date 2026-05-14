@@ -1,17 +1,23 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { isEqual } from '@ember/utils';
+import { getOwner } from '@ember/owner';
 
 import HistoryItem from '../objects/history-item.js';
 import {
   localStorageSet,
   localStorageGet,
+  localStorageRemove,
   isEmptyObject,
   LOCAL_STORAGE_KEY,
 } from '../utils/helpers.js';
 
 interface TransitionLike {
   to?: { name?: string | null; params?: Record<string, unknown> | null } | null;
+}
+
+interface FastBootLike {
+  isFastBoot?: boolean;
 }
 
 export default class RouterHistoryService extends Service {
@@ -22,6 +28,8 @@ export default class RouterHistoryService extends Service {
   constructor(...args: ConstructorParameters<typeof Service>) {
     super(...args);
 
+    if (this.isFastBoot) return;
+
     const stored = localStorageGet<HistoryItem[]>(LOCAL_STORAGE_KEY);
 
     if (stored && stored.length > 0) {
@@ -29,6 +37,14 @@ export default class RouterHistoryService extends Service {
     } else {
       localStorageSet(LOCAL_STORAGE_KEY, []);
     }
+  }
+
+  get isFastBoot(): boolean {
+    const owner = getOwner(this);
+    const fastboot = owner?.lookup('service:fastboot') as
+      | FastBootLike
+      | undefined;
+    return Boolean(fastboot?.isFastBoot);
   }
 
   get previous(): HistoryItem | null {
@@ -49,7 +65,7 @@ export default class RouterHistoryService extends Service {
       while (next.length > this.maxLength) next.shift();
 
       this.history = next;
-      this.persistData(this.history);
+      if (!this.isFastBoot) this.persistData(this.history);
     }
 
     return this.history;
@@ -57,7 +73,7 @@ export default class RouterHistoryService extends Service {
 
   clear(): void {
     this.history = [];
-    window.localStorage.removeItem(LOCAL_STORAGE_KEY);
+    localStorageRemove(LOCAL_STORAGE_KEY);
   }
 
   persistData(history: HistoryItem[]): void {

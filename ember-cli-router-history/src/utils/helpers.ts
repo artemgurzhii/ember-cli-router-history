@@ -1,15 +1,34 @@
 export const LOCAL_STORAGE_KEY = 'ember-cli-router-history';
 
+function getLocalStorage(): Storage | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    return window.localStorage ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function localStorageSet(key: string, item: unknown): void {
-  window.localStorage.setItem(key, JSON.stringify(item));
+  const storage = getLocalStorage();
+  if (!storage) return;
+  storage.setItem(key, JSON.stringify(item));
 }
 
 export function localStorageGet<T = unknown>(key: string): T | null {
-  const item = window.localStorage.getItem(key);
+  const storage = getLocalStorage();
+  if (!storage) return null;
 
+  const item = storage.getItem(key);
   if (!item) return null;
 
   return JSON.parse(item) as T;
+}
+
+export function localStorageRemove(key: string): void {
+  const storage = getLocalStorage();
+  if (!storage) return;
+  storage.removeItem(key);
 }
 
 export function arraysEqual<T>(

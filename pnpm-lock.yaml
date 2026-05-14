@@ -98,7 +98,7 @@ importers:
         version: 2.3.1(@babel/core@7.29.0)
       ember-cli-router-history:
         specifier: workspace:*
-        version: file:ember-cli-router-history(@babel/core@7.29.0)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))
+        version: file:ember-cli-router-history(@babel/core@7.29.0)(@glimmer/tracking@1.1.2)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3
@@ -2735,7 +2735,11 @@ packages:
     resolution: {directory: ember-cli-router-history, type: directory}
     engines: {node: '>= 20.11'}
     peerDependencies:
+      '@glimmer/tracking': ^1.0.0 || ^2.0.0
       ember-source: '>= 4.12.0'
+    peerDependenciesMeta:
+      '@glimmer/tracking':
+        optional: true
 
   ember-cli-string-utils@1.1.0:
     resolution: {integrity: sha512-PlJt4fUDyBrC/0X+4cOpaGCiMawaaB//qD85AXmDRikxhxVzfVdpuoec02HSiTGTTB85qCIzWBIh8lDOiMyyFg==}
@@ -8678,11 +8682,13 @@ snapshots:
 
   ember-cli-path-utils@1.0.0: {}
 
-  ember-cli-router-history@file:ember-cli-router-history(@babel/core@7.29.0)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)):
+  ember-cli-router-history@file:ember-cli-router-history(@babel/core@7.29.0)(@glimmer/tracking@1.1.2)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)):
     dependencies:
       '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.1(@babel/core@7.29.0)
       ember-source: 6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)
+    optionalDependencies:
+      '@glimmer/tracking': 1.1.2
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color

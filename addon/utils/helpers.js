@@ -1,5 +1,3 @@
-import { isPresent } from '@ember/utils';
-
 export const LOCAL_STORAGE_KEY = 'ember-cli-router-history';
 
 export function localStorageSet(key, item) {
@@ -27,9 +25,6 @@ export function getValues(obj) {
 }
 
 export function isEmptyObject(obj) {
-  const exists = isPresent(obj);
-
-  if (exists) return Object.keys(obj).length === 0;
-
-  return true;
+  if (obj == null) return true;
+  return Object.keys(obj).length === 0;
 }

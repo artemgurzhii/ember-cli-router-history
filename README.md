@@ -1,9 +1,15 @@
-[![Build Status](https://travis-ci.org/artemgurzhii/ember-cli-router-history.svg?branch=master)](https://travis-ci.org/artemgurzhii/ember-cli-router-history)
-
 ember-cli-router-history
 ==============================================================================
 
 Ember router history with local storage and query params support.
+
+
+Compatibility
+------------------------------------------------------------------------------
+
+- Ember.js v4.12 or above
+- Embroider or ember-auto-import v2
+
 
 Installation
 ------------------------------------------------------------------------------
@@ -15,79 +21,73 @@ ember install ember-cli-router-history
 
 Usage
 ------------------------------------------------------------------------------
-After installation `ember-cli-router-history` open `app/router.js` and add following
+
+Wire the service to the router service's `routeDidChange` event (or
+`routeWillChange` if you want to capture *every* attempted transition):
 
 ```js
-import config from 'your-app-name/config/environment';
-import EmberRouter from '@ember/routing/router';
-import { inject as service } from '@ember/service';
+import Application from '@ember/application';
+import { service } from '@ember/service';
 
-const Router = EmberRouter.extend({
-  routerHistory: service(),
+export default class App extends Application {
+  @service router;
+  @service routerHistory;
 
-  location: config.locationType,
-  rootURL: config.rootURL,
-
-  // Use `willTransition` if you want to track all transitions
-  willTransition(previousTransition, currentTransition) {
-    this._super(...arguments);
-
-    this.routerHistory.addItem(currentTransition);
-  },
-
-  // Or use `didTransition` if you want to track only successful(completed/finished) transitions
-  didTransition(transition) {
-    this._super(...arguments);
-
-    this.routerHistory.addItem(transition);
-  },
-});
+  ready() {
+    this.router.on('routeDidChange', (transition) => {
+      this.routerHistory.addItem(transition);
+    });
+  }
+}
 ```
 
-`this.routerHistory.previous` returns previous transition if present, or null if not.
+Or from any route / component:
 
-`this.routerHistory.history` returns all history items.
+```js
+import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
-`this.routerHistory.clear()` clear transition history, can be used when user logges out
+export default class ApplicationRoute extends Route {
+  @service router;
+  @service routerHistory;
+
+  constructor() {
+    super(...arguments);
+
+    this.router.on('routeDidChange', (transition) => {
+      this.routerHistory.addItem(transition);
+    });
+  }
+}
+```
+
+API:
+
+- `routerHistory.previous` — the previous `HistoryItem`, or `null` if there isn't one.
+- `routerHistory.history` — the full history stack (most recent last).
+- `routerHistory.clear()` — wipe the stack and local storage (useful on logout).
 
 
 Configuration
 ------------------------------------------------------------------------------
+
+To override defaults, extend the service in your app:
+
 ```js
+// app/services/router-history.js
 import RouterHistoryService from 'ember-cli-router-history/services/router-history';
 
-export default RouterHistoryService.extend({
-  maxLength: 20, // Number of item to store in the history, default is 10
-})
+export default class extends RouterHistoryService {
+  maxLength = 20; // default is 10
+}
 ```
+
 
 Contributing
 ------------------------------------------------------------------------------
 
-### Installation
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-* `git clone <repository-url>`
-* `cd ember-cli-router-history`
-* `npm install`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
-
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
 ------------------------------------------------------------------------------

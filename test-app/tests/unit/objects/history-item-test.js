@@ -88,7 +88,10 @@ module('Unit | Objects | history item', function (hooks) {
     const item1 = new HistoryItem({ name: 'lorem', params: { key: 'value1' } });
     const item2 = new HistoryItem({ name: 'lorem', params: { key: 'value2' } });
 
-    assert.notOk(item1.isEqual(item2), 'items are not equal when params differ');
+    assert.notOk(
+      item1.isEqual(item2),
+      'items are not equal when params differ',
+    );
   });
 
   test('when name is equal', function (assert) {

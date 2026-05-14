@@ -56,10 +56,7 @@ module('Unit | Service | router-history', function (hooks) {
     );
 
     this.service.addItem(transition2);
-    assert.ok(
-      this.service.previous.isEqual(item1),
-      'has previous route',
-    );
+    assert.ok(this.service.previous.isEqual(item1), 'has previous route');
 
     assert.strictEqual(
       this.service.history.length,

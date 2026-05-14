@@ -1,5 +1,6 @@
 import { Addon } from '@embroider/addon-dev/rollup';
 import { babel } from '@rollup/plugin-babel';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const addon = new Addon({
   srcDir: 'src',
@@ -20,6 +21,8 @@ export default {
     addon.appReexports(['services/router-history.js']),
 
     addon.dependencies(),
+
+    nodeResolve({ extensions: ['.js', '.ts'] }),
 
     babel({
       extensions: ['.js', '.ts'],

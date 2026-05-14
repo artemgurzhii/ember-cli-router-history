@@ -21,8 +21,14 @@ export default class HistoryItem {
   isEqual(other: HistoryItem | null | undefined): boolean {
     if (!other) return false;
 
-    const paramsAreEqual = arraysEqual(getKeys(this.params), getKeys(other.params));
-    const valuesAreEqual = arraysEqual(getValues(this.params), getValues(other.params));
+    const paramsAreEqual = arraysEqual(
+      getKeys(this.params),
+      getKeys(other.params),
+    );
+    const valuesAreEqual = arraysEqual(
+      getValues(this.params),
+      getValues(other.params),
+    );
 
     return this.name === other.name && paramsAreEqual && valuesAreEqual;
   }

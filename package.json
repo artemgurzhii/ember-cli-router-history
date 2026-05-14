@@ -25,7 +25,19 @@
   },
   "packageManager": "pnpm@9.1.0",
   "volta": {
-    "node": "20.12.2",
+    "node": "24.15.0",
     "pnpm": "9.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@glimmer/component": "^1.1.2"
+    },
+    "peerDependencyRules": {
+      "allowAny": [
+        "@glimmer/component",
+        "ember-source",
+        "typescript"
+      ]
+    }
   }
 }

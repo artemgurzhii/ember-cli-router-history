@@ -1,4 +1,5 @@
 import { module, test } from 'qunit';
+
 import {
   LOCAL_STORAGE_KEY,
   localStorageGet,
@@ -10,10 +11,7 @@ module('Unit | Utils | helpers — localStorage guards', function (hooks) {
   let originalDescriptor;
 
   hooks.beforeEach(function () {
-    originalDescriptor = Object.getOwnPropertyDescriptor(
-      window,
-      'localStorage',
-    );
+    originalDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage');
   });
 
   hooks.afterEach(function () {

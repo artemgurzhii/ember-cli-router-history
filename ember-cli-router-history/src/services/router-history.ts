@@ -1,15 +1,15 @@
-import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { isEqual } from '@ember/utils';
 import { getOwner } from '@ember/owner';
+import Service from '@ember/service';
+import { isEqual } from '@ember/utils';
 
 import HistoryItem from '../objects/history-item.js';
 import {
-  localStorageSet,
-  localStorageGet,
-  localStorageRemove,
   isEmptyObject,
   LOCAL_STORAGE_KEY,
+  localStorageGet,
+  localStorageRemove,
+  localStorageSet,
 } from '../utils/helpers.js';
 
 interface TransitionLike {
@@ -41,9 +41,8 @@ export default class RouterHistoryService extends Service {
 
   get isFastBoot(): boolean {
     const owner = getOwner(this);
-    const fastboot = owner?.lookup('service:fastboot') as
-      | FastBootLike
-      | undefined;
+    const fastboot = owner?.lookup('service:fastboot') as FastBootLike | undefined;
+
     return Boolean(fastboot?.isFastBoot);
   }
 

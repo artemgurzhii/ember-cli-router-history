@@ -51,16 +51,16 @@ jobs:
           - ember-lts-6.12
           - embroider-safe
           - embroider-optimized
-        include:
-          # Forward-looking scenarios — ember-source 6.x needs ember-cli 6.x.
-          # Our test-app stays on ember-cli 5.12 (LTS), so these can break
-          # for reasons unrelated to the addon. Reported but not gating.
-          - try-scenario: ember-release
-            allow-failure: true
-          - try-scenario: ember-beta
-            allow-failure: true
-          - try-scenario: ember-canary
-            allow-failure: true
+        # include:
+        #   # Forward-looking scenarios — ember-source 6.x needs ember-cli 6.x.
+        #   # Our test-app stays on ember-cli 5.12 (LTS), so these can break
+        #   # for reasons unrelated to the addon. Reported but not gating.
+        #   - try-scenario: ember-release
+        #     allow-failure: true
+        #   - try-scenario: ember-beta
+        #     allow-failure: true
+        #   - try-scenario: ember-canary
+        #     allow-failure: true
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3

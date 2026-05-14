@@ -113,7 +113,7 @@ importers:
         specifier: ^7.28.6
         version: 7.28.6(@babel/core@7.29.0)
       '@babel/runtime':
-        specifier: ^7.28.6
+        specifier: ^7.29.2
         version: 7.29.2
       '@ember/app-tsconfig':
         specifier: ^2.0.0

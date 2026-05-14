@@ -60,5 +60,4 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter ember-cli-router-history build
       - name: Run try scenario
-        working-directory: test-app
-        run: ../node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
+        run: pnpm --filter test-app exec ember try:one ${{ matrix.try-scenario }} --skip-cleanup

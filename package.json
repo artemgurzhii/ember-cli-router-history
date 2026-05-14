@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-router-history-workspace",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "private": true,
   "description": "Workspace root for ember-cli-router-history (V2 addon + test-app)",
   "repository": "https://github.com/artemgurzhii/ember-cli-router-history",

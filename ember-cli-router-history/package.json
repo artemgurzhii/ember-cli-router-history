@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-router-history",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Ember router history with local storage and query params support.",
   "keywords": [
     "ember-addon",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/artemgurzhii/ember-cli-router-history.git",
+    "url": "git+https://github.com/artemgurzhii/ember-cli-router-history.git",
     "directory": "ember-cli-router-history"
   },
   "license": "GPL-3.0",

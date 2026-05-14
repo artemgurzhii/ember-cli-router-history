@@ -27,6 +27,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter ember-cli-router-history build
+      - name: Re-sync workspace so the injected addon picks up dist/
+        run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm --filter test-app test:ember
 
@@ -35,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     timeout-minutes: 10
+    continue-on-error: ${{ matrix.allow-failure || false }}
     strategy:
       fail-fast: false
       matrix:
@@ -43,11 +46,18 @@ jobs:
           - ember-lts-5.4
           - ember-lts-5.8
           - ember-lts-5.12
-          - ember-release
-          - ember-beta
-          - ember-canary
           - embroider-safe
           - embroider-optimized
+        include:
+          # Forward-looking scenarios — ember-source 6.x needs ember-cli 6.x.
+          # Our test-app stays on ember-cli 5.12 (LTS), so these can break
+          # for reasons unrelated to the addon. Reported but not gating.
+          - try-scenario: ember-release
+            allow-failure: true
+          - try-scenario: ember-beta
+            allow-failure: true
+          - try-scenario: ember-canary
+            allow-failure: true
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -59,5 +69,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter ember-cli-router-history build
+      - name: Re-sync workspace so the injected addon picks up dist/
+        run: pnpm install --frozen-lockfile
       - name: Run try scenario
         run: pnpm --filter test-app exec ember try:one ${{ matrix.try-scenario }} --skip-cleanup

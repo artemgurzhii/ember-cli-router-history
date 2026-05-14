@@ -200,6 +200,9 @@ importers:
       webpack:
         specifier: ^5.94.0
         version: 5.106.2(postcss@8.5.14)
+    dependenciesMeta:
+      ember-cli-router-history:
+        injected: true
 
 packages:
 

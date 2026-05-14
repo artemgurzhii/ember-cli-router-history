@@ -46,6 +46,9 @@ jobs:
           - ember-lts-5.4
           - ember-lts-5.8
           - ember-lts-5.12
+          - ember-lts-6.4
+          - ember-lts-6.8
+          - ember-lts-6.12
           - embroider-safe
           - embroider-optimized
         include:

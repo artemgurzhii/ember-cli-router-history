@@ -18,7 +18,8 @@
     "start:addon": "pnpm --filter ember-cli-router-history start",
     "start:test-app": "pnpm --filter test-app start",
     "test": "pnpm --filter test-app test",
-    "test:ember-compatibility": "pnpm --filter test-app test:ember-compatibility"
+    "test:ember-compatibility": "pnpm --filter test-app test:ember-compatibility",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">= 18"
@@ -39,5 +40,8 @@
         "typescript"
       ]
     }
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }

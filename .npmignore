@@ -1,29 +1,26 @@
-# compiled output
-/dist/
-/tmp/
-
-# dependencies
-/bower_components/
-
-# misc
-/.bowerrc
-/.editorconfig
-/.ember-cli
-/.eslintignore
-/.eslintrc.js
-/.gitignore
-/.template-lintrc.js
-/.travis.yml
-/.watchmanconfig
-/bower.json
-/config/ember-try.js
-/ember-cli-build.js
-/testem.js
-/tests/
-/yarn.lock
-.gitkeep
+.editorconfig
+.ember-cli
+.eslintcache
+.eslintignore
+.eslintrc.js
+.git
+.github
+.gitignore
+.prettierignore
+.prettierrc.js
+.template-lintrc.js
+.travis.yml
+.watchmanconfig
+config/ember-try.js
+config/release.js
+CONTRIBUTING.md
+ember-cli-build.js
+testem.js
+tests/
+yarn-error.log
+yarn.lock
 
 # ember-try
 /.node_modules.ember-try/
-/bower.json.ember-try
 /package.json.ember-try
+/npm-shrinkwrap.json.ember-try

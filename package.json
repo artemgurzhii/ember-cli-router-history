@@ -29,9 +29,6 @@
     "pnpm": "9.1.0"
   },
   "pnpm": {
-    "overrides": {
-      "@glimmer/component": "^1.1.2"
-    },
     "peerDependencyRules": {
       "allowAny": [
         "@glimmer/component",

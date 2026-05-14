@@ -1,15 +1,27 @@
 // eslint.config.mjs
-import { configs } from "@nullvoxpopuli/eslint-configs";
+import { configs, disableTypedLints } from "@nullvoxpopuli/eslint-configs";
 
 const config = configs.ember(import.meta.dirname);
 
 export default [
   ...config,
+  disableTypedLints.forTests,
   {
-    files: ["**/*.{js,cjs,mjs}"],
+    files: ["tests/**/*"],
     rules: {
-      "n/no-unsupported-features/node-builtins": "off",
-      "n/no-unsupported-features/es-syntax": "off",
+      "ember/no-shadow-route-definition": "off",
+    },
+  },
+  {
+    files: ["**/*.ts", "**/*.gts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
+    files: ["*.{js,cjs}"],
+    rules: {
+      "n/no-unsupported-features": "off",
     },
   },
 ];

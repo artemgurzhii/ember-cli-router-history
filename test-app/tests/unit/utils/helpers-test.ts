@@ -8,7 +8,7 @@ import {
 } from 'ember-cli-router-history/utils/helpers';
 
 module('Unit | Utils | helpers — localStorage guards', function (hooks) {
-  let originalDescriptor;
+  let originalDescriptor: PropertyDescriptor | undefined;
 
   hooks.beforeEach(function () {
     originalDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage');

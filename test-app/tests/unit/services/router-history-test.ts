@@ -3,8 +3,15 @@ import { setupTest } from 'ember-qunit';
 
 import { HistoryItem } from 'ember-cli-router-history';
 
-const mockTransition = ({ name, params }) => ({
-  to: { name, params },
+import type { TestContext } from '@ember/test-helpers';
+import type { RouterHistoryService } from 'ember-cli-router-history';
+
+interface Context extends TestContext {
+  service: RouterHistoryService;
+}
+
+const mockTransition = ({ name, params }: { name: string; params?: Record<string, string> }) => ({
+  to: { name, params: params ?? {} },
 });
 
 const transition1 = mockTransition({ name: 'name1', params: {} });
@@ -16,19 +23,19 @@ const transition2 = mockTransition({
 module('Unit | Service | router-history', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function (this: Context) {
     this.service = this.owner.lookup('service:router-history');
   });
 
-  hooks.afterEach(function () {
+  hooks.afterEach(function (this: Context) {
     this.service.clear();
   });
 
-  test('it exists', function (assert) {
+  test('it exists', function (this: Context, assert) {
     assert.ok(this.service);
   });
 
-  test('#buildItemFor', function (assert) {
+  test('#buildItemFor', function (this: Context, assert) {
     const item1 = this.service.buildItemFor(transition1);
     const item2 = this.service.buildItemFor(transition2);
 
@@ -42,14 +49,14 @@ module('Unit | Service | router-history', function (hooks) {
     assert.deepEqual(item2.params, { some_id: 'some_value' }, 'params are correct');
   });
 
-  test('item is being pushed in the history', function (assert) {
+  test('item is being pushed in the history', function (this: Context, assert) {
     const item1 = this.service.buildItemFor(transition1);
 
     this.service.addItem(transition1);
     assert.strictEqual(this.service.previous, null, 'has no previous routes except current');
 
     this.service.addItem(transition2);
-    assert.ok(this.service.previous.isEqual(item1), 'has previous route');
+    assert.ok(this.service.previous?.isEqual(item1), 'has previous route');
 
     assert.strictEqual(this.service.history.length, 2, '2 items are in the history array');
 
@@ -58,7 +65,7 @@ module('Unit | Service | router-history', function (hooks) {
     assert.strictEqual(this.service.history.length, 0, 'history is empty after clear');
   });
 
-  test('history has size limit', function (assert) {
+  test('history has size limit', function (this: Context, assert) {
     assert.strictEqual(this.service.history.length, 0, 'history is empty');
 
     Array(10)
@@ -80,12 +87,12 @@ module('Unit | Service | router-history', function (hooks) {
     const names = this.service.history.map((item) => item.name);
 
     assert.ok(
-      names.every((name) => name.startsWith('second-round-transition')),
+      names.every((name) => name?.startsWith('second-round-transition')),
       'transitions which exceed history limit are removed'
     );
   });
 
-  test('history size limit is configurable', function (assert) {
+  test('history size limit is configurable', function (this: Context, assert) {
     this.service.maxLength = 1;
 
     assert.strictEqual(this.service.history.length, 0, 'history is empty');
@@ -95,6 +102,6 @@ module('Unit | Service | router-history', function (hooks) {
 
     this.service.addItem(mockTransition({ name: 'second name' }));
     assert.strictEqual(this.service.history.length, 1, 'history has 1 item');
-    assert.strictEqual(this.service.history[0].name, 'second name', 'first item is removed');
+    assert.strictEqual(this.service.history[0]?.name, 'second name', 'first item is removed');
   });
 });

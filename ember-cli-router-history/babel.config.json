@@ -1,0 +1,30 @@
+{
+  "presets": [
+    [
+      "@babel/preset-typescript",
+      {
+        "allExtensions": true,
+        "onlyRemoveTypeImports": true,
+        "allowDeclareFields": true
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module:decorator-transforms",
+      {
+        "runtime": {
+          "import": "decorator-transforms/runtime"
+        }
+      }
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "useESModules": true,
+        "regenerator": false
+      }
+    ]
+  ]
+}

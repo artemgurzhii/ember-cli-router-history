@@ -1,0 +1,12 @@
+{
+  "extends": "@tsconfig/ember/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "./src",
+    "declarationDir": "declarations"
+  },
+  "glint": {
+    "environment": ["ember-loose"]
+  },
+  "include": ["src/**/*"]
+}

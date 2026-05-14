@@ -18,13 +18,17 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint
-      - run: yarn test:ember
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter ember-cli-router-history build
+      - run: pnpm lint
+      - run: pnpm --filter test-app test:ember
 
   try-scenarios:
     name: 'Try: ${{ matrix.try-scenario }}'
@@ -46,9 +50,15 @@ jobs:
           - embroider-optimized
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter ember-cli-router-history build
+      - name: Run try scenario
+        working-directory: test-app
+        run: ../node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup

@@ -1,0 +1,3 @@
+packages:
+  - 'ember-cli-router-history'
+  - 'test-app'

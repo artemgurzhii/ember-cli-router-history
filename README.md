@@ -9,6 +9,7 @@ Compatibility
 
 - Ember.js v4.12 or above
 - Embroider or ember-auto-import v2
+- Node.js v18 or above
 
 
 Installation
@@ -22,10 +23,10 @@ ember install ember-cli-router-history
 Usage
 ------------------------------------------------------------------------------
 
-Wire the service to the router service's `routeDidChange` event (or
-`routeWillChange` if you want to capture *every* attempted transition):
+Subscribe the service to the router's `routeDidChange` event:
 
 ```js
+// app/app.js
 import Application from '@ember/application';
 import { service } from '@ember/service';
 
@@ -41,7 +42,7 @@ export default class App extends Application {
 }
 ```
 
-Or from any route / component:
+Or wire it from any route or component:
 
 ```js
 import Route from '@ember/routing/route';
@@ -63,9 +64,9 @@ export default class ApplicationRoute extends Route {
 
 API:
 
-- `routerHistory.previous` — the previous `HistoryItem`, or `null` if there isn't one.
+- `routerHistory.previous` — the previous `HistoryItem`, or `null`.
 - `routerHistory.history` — the full history stack (most recent last).
-- `routerHistory.clear()` — wipe the stack and local storage (useful on logout).
+- `routerHistory.clear()` — wipe the stack and local storage.
 
 
 Configuration
@@ -83,10 +84,51 @@ export default class extends RouterHistoryService {
 ```
 
 
+Repository layout
+------------------------------------------------------------------------------
+
+This repo is a pnpm workspace with two packages:
+
+- `ember-cli-router-history/` — the V2 addon (the package published to npm).
+- `test-app/` — a host app that consumes the addon and runs the test suite.
+
+
 Contributing
 ------------------------------------------------------------------------------
 
-See the [Contributing](CONTRIBUTING.md) guide for details.
+### Installation
+
+```
+git clone https://github.com/artemgurzhii/ember-cli-router-history
+cd ember-cli-router-history
+pnpm install
+```
+
+### Building the addon
+
+```
+pnpm --filter ember-cli-router-history build
+```
+
+### Linting
+
+```
+pnpm lint
+pnpm lint:fix
+```
+
+### Running tests
+
+```
+pnpm test                         # runs lint + tests in the test-app
+pnpm test:ember-compatibility     # runs ember-try against multiple LTS versions
+```
+
+### Running the test-app
+
+```
+pnpm --filter test-app start
+```
 
 
 License
